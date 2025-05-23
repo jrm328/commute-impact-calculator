@@ -32,7 +32,7 @@ async function geocodeAddress(address) {
 }
 
 async function calculateRoute(start, end, mode) {
-    const apiKey = 'your-api-key'; // Replace with your ORS API key
+    const apiKey = '5b3ce3597851110001cf62485e628efb7ff8440db7e15b707ff40a2d'; // Replace with your ORS API key
     const url = `https://api.openrouteservice.org/v2/directions/${mode}?api_key=${apiKey}&start=${start.lng},${start.lat}&end=${end.lng},${end.lat}`;
 
     try {
@@ -97,7 +97,7 @@ document.getElementById('commuteForm').addEventListener('submit', async function
     }
 
     // Calculate equivalent air conditioner usage
-    const acEmissionsPerHour = 0.88; // kg CO2 per hour
+    const acEmissionsPerHour = 0.17; // kg CO2 per hour
     const dailyACMinutes = (totalImpact / acEmissionsPerHour) * 60;
     const weeklyACMinutes = dailyACMinutes * 7;
     const monthlyACMinutes = dailyACMinutes * 30;
