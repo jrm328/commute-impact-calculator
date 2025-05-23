@@ -16,3 +16,11 @@ label {
 button {
     margin-top: 10px;
 }
+
+#disclaimer {
+    margin-top: 20px;
+    color: gray;
+    font-size: 0.9em;
+    border-top: 1px solid #ccc;
+    padding-top: 10px;
+}
