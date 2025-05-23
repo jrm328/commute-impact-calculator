@@ -23,7 +23,7 @@ async function geocodeAddress(address) {
 }
 
 async function calculateRoute(start, end, mode) {
-    const apiKey = 'your-api-key'; // Replace with your ORS API key
+    const apiKey = '5b3ce3597851110001cf62485e628efb7ff8440db7e15b707ff40a2d'; // Replace with your ORS API key
     const url = `https://api.openrouteservice.org/v2/directions/${mode}?api_key=${apiKey}&start=${start.lng},${start.lat}&end=${end.lng},${end.lat}`;
 
     const response = await fetch(url);
