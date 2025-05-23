@@ -5,6 +5,8 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Commute Impact Calculator</title>
     <link rel="stylesheet" href="styles.css">
+    <link rel="stylesheet" href="https://unpkg.com/leaflet/dist/leaflet.css" />
+    <script src="https://unpkg.com/leaflet/dist/leaflet.js"></script>
 </head>
 <body>
     <h1>Commute Impact Calculator</h1>
@@ -31,6 +33,7 @@
         <button type="button" onclick="resetForm()">Reset</button>
     </form>
     <div id="results"></div>
+    <div id="map" style="height: 400px; width: 100%;"></div>
     <script src="script.js"></script>
 </body>
 </html>
