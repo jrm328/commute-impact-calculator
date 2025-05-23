@@ -7,6 +7,15 @@ L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
     attribution: '© OpenStreetMap contributors'
 }).addTo(map);
 
+// Define colors for each mode of transport
+const transportColors = {
+    'driving-car': 'blue',
+    'cycling-regular': 'green',
+    'foot-walking': 'orange',
+    'driving-hgv': 'red', // Assuming this is for buses
+    'train': 'purple'
+};
+
 async function geocodeAddress(address) {
     const url = `https://nominatim.openstreetmap.org/search?format=json&q=${encodeURIComponent(address)}`;
     const response = await fetch(url);
@@ -23,22 +32,32 @@ async function geocodeAddress(address) {
 }
 
 async function calculateRoute(start, end, mode) {
-    const apiKey = '5b3ce3597851110001cf62485e628efb7ff8440db7e15b707ff40a2d'; // Replace with your ORS API key
+    const apiKey = 'your-api-key'; // Replace with your ORS API key
     const url = `https://api.openrouteservice.org/v2/directions/${mode}?api_key=${apiKey}&start=${start.lng},${start.lat}&end=${end.lng},${end.lat}`;
 
-    const response = await fetch(url);
-    const data = await response.json();
+    try {
+        const response = await fetch(url);
+        const data = await response.json();
 
-    const routeCoordinates = data.features[0].geometry.coordinates.map(coord => [coord[1], coord[0]]);
-    const distance = data.features[0].properties.segments[0].distance / 1000; // Distance in kilometers
+        if (data.features && data.features.length > 0) {
+            const routeCoordinates = data.features[0].geometry.coordinates.map(coord => [coord[1], coord[0]]);
+            const distance = data.features[0].properties.segments[0].distance / 1000; // Distance in kilometers
 
-    // Display the route on the map
-    L.polyline(routeCoordinates, { color: 'blue' }).addTo(map);
+            // Use the color associated with the mode of transport
+            L.polyline(routeCoordinates, { color: transportColors[mode] }).addTo(map);
 
-    // Fit the map to the route
-    map.fitBounds(routeCoordinates);
+            // Fit the map to the route
+            map.fitBounds(routeCoordinates);
 
-    return distance; // Return the calculated distance
+            return distance; // Return the calculated distance
+        } else {
+            console.error('No route data available');
+            return 0;
+        }
+    } catch (error) {
+        console.error('Error fetching route:', error);
+        return 0;
+    }
 }
 
 function calculateEmissions(distance, mode) {
@@ -78,11 +97,11 @@ document.getElementById('commuteForm').addEventListener('submit', async function
     }
 
     // Calculate equivalent air conditioner usage
-    const acEmissionsPerHour = 0.17; // kg CO2 per hour
+    const acEmissionsPerHour = 0.88; // kg CO2 per hour
     const dailyACMinutes = (totalImpact / acEmissionsPerHour) * 60;
     const weeklyACMinutes = dailyACMinutes * 7;
     const monthlyACMinutes = dailyACMinutes * 30;
-    const yearlyACMinutes = dailyACMinutes * 365;
+        const yearlyACMinutes = dailyACMinutes * 365;
 
     resultsHTML += `<p><strong>Total Distance:</strong> ${totalDistance.toFixed(2)} km</p>`;
     resultsHTML += `<p><strong>Total Impact:</strong> ${totalImpact.toFixed(2)} kg CO2</p>`;
