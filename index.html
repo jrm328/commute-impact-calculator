@@ -35,7 +35,17 @@
     <div id="disclaimer">
         <p><strong>Disclaimer:</strong> The information displayed on this web app is for learning purposes only and is an estimate of the CO2 impact of your commute. It should not be taken as a 100% scientific fact. Variations in data sources and assumptions can affect the accuracy of these estimates.</p>
     </div>
-    <div id="map" style="height: 400px; width: 100%;"></div>
+    <div id="map" style="height: 400px; width: 100%; position: relative;"></div>
+<div id="legend" style="position: absolute; bottom: 10px; left: 10px; background: white; padding: 10px; border-radius: 5px; box-shadow: 0 0 5px rgba(0,0,0,0.3);">
+    <h4>Commute Legend</h4>
+    <ul style="list-style: none; padding: 0; margin: 0;">
+        <li><span style="background: blue; width: 20px; height: 10px; display: inline-block;"></span> Car</li>
+        <li><span style="background: green; width: 20px; height: 10px; display: inline-block;"></span> Bike</li>
+        <li><span style="background: orange; width: 20px; height: 10px; display: inline-block;"></span> Walk</li>
+        <li><span style="background: red; width: 20px; height: 10px; display: inline-block;"></span> Bus</li>
+        <li><span style="background: purple; width: 20px; height: 10px; display: inline-block;"></span> Train</li>
+    </ul>
+</div>
     <script src="script.js"></script>
 </body>
 </html>
