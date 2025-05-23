@@ -35,3 +35,16 @@ A simple web application that calculates the environmental impact of your daily 
 ### License
 
 This project is licensed under the MIT License. See the `LICENSE` file for details.
+
+### Acknowledgments
+
+- **Data Sources:** Emissions factors are derived from reputable organizations such as the Environmental Protection Agency and Department of Energy.
+- **Inspiration:** Inspired by the need for increased awareness of personal environmental impacts.
+
+## Demo
+
+Check out the live demo hosted on GitHub Pages: [Commute Impact Calculator](https://jrm328.github.io/commute-impact-calculator)
+
+## Disclaimer
+
+*This is a personal project and is in no way affiliated with or endorsed by the U.S. government or any of its agencies.*
