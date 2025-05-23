@@ -78,7 +78,7 @@ document.getElementById('commuteForm').addEventListener('submit', async function
     }
 
     // Calculate equivalent air conditioner usage
-    const acEmissionsPerHour = 0.88; // kg CO2 per hour
+    const acEmissionsPerHour = 0.17; // kg CO2 per hour
     const dailyACMinutes = (totalImpact / acEmissionsPerHour) * 60;
     const weeklyACMinutes = dailyACMinutes * 7;
     const monthlyACMinutes = dailyACMinutes * 30;
