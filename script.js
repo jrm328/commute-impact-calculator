@@ -102,3 +102,31 @@ document.getElementById('commuteForm').addEventListener('submit', async function
     const acMinutes = Math.round(((totalImpact / acEmissionsPerHour) - acHours) * 60);
 
     resultsHTML += `<p><strong>Total Distance:</strong> ${totalDistance.toFixed(2)} km</p>`;
+    resultsHTML += `<p><strong>Total Impact:</strong> ${totalImpact.toFixed(2)} kg CO2</p>`;
+    resultsHTML += `<p>CO2 impact of this commute is equivalent to running a home air conditioner for ${acHours} hours and ${acMinutes} minutes.</p>`;
+
+    document.getElementById('results').innerHTML = resultsHTML;
+});
+
+function addSegment() {
+    const segment = document.querySelector('.segment').cloneNode(true);
+    segment.querySelectorAll('input').forEach(input => input.value = ''); // Clear input fields
+    document.getElementById('segments').appendChild(segment);
+}
+
+function removeSegment(button) {
+    const segment = button.parentElement;
+    if (document.querySelectorAll('.segment').length > 1) {
+        segment.remove();
+    } else {
+        alert("You must have at least one segment.");
+    }
+}
+
+function resetForm() {
+    document.getElementById('commuteForm').reset();
+    document.getElementById('results').innerText = '';
+    const segmentsContainer = document.getElementById('segments');
+    segmentsContainer.innerHTML = '';
+    addSegment(); // Add one default segment
+}
