@@ -81,3 +81,18 @@ const end = { lat: 40.73061, lng: -73.935242 }; // Example end point (Brooklyn)
 calculateRoute(start, end).then(distance => {
     console.log(`Distance: ${distance.toFixed(2)} km`);
 });
+
+async function geocodeAddress(address) {
+    const url = `https://nominatim.openstreetmap.org/search?format=json&q=${encodeURIComponent(address)}`;
+    const response = await fetch(url);
+    const data = await response.json();
+
+    if (data.length > 0) {
+        return {
+            lat: parseFloat(data[0].lat),
+            lng: parseFloat(data[0].lon)
+        };
+    } else {
+        throw new Error('Address not found');
+    }
+}
