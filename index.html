@@ -23,10 +23,12 @@
                         <option value="walk">Walk</option>
                     </select>
                 </label>
+                <button type="button" class="remove-segment" onclick="removeSegment(this)">Remove Segment</button>
             </div>
         </div>
         <button type="button" onclick="addSegment()">Add Segment</button>
         <button type="submit">Calculate Impact</button>
+        <button type="button" onclick="resetForm()">Reset</button>
     </form>
     <div id="results"></div>
     <script src="script.js"></script>
