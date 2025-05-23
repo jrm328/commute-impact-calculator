@@ -24,3 +24,36 @@ button {
     border-top: 1px solid #ccc;
     padding-top: 10px;
 }
+
+#legend {
+    position: absolute;
+    bottom: 10px;
+    left: 10px;
+    background: white;
+    padding: 10px;
+    border-radius: 5px;
+    box-shadow: 0 0 5px rgba(0,0,0,0.3);
+}
+
+#legend h4 {
+    margin: 0 0 5px 0;
+    font-size: 1em;
+}
+
+#legend ul {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+}
+
+#legend li {
+    margin-bottom: 5px;
+    font-size: 0.9em;
+}
+
+#legend span {
+    width: 20px;
+    height: 10px;
+    display: inline-block;
+    margin-right: 5px;
+}
