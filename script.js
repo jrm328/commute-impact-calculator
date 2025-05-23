@@ -71,13 +71,22 @@ function calculateEmissions(distance, mode) {
     return distance * emissionsFactors[mode];
 }
 
+// In your form submit handler, replace the per-segment polyline with this logic:
+
 document.getElementById('commuteForm').addEventListener('submit', async function(event) {
     event.preventDefault();
     let totalImpact = 0;
     let totalDistance = 0;
     let resultsHTML = '';
 
+    // Clear existing polylines (if needed)
+    if (window.overallRouteLine) {
+        map.removeLayer(window.overallRouteLine);
+    }
+
     const segments = document.querySelectorAll('.segment');
+    let allCoordinates = []; // To hold all points of the full route
+
     for (const [index, segment] of segments.entries()) {
         const startAddress = segment.querySelector('.start-address').value;
         const endAddress = segment.querySelector('.end-address').value;
@@ -86,18 +95,35 @@ document.getElementById('commuteForm').addEventListener('submit', async function
         try {
             const startCoords = await geocodeAddress(startAddress);
             const endCoords = await geocodeAddress(endAddress);
-            const distance = await calculateRoute(startCoords, endCoords, mode);
-            totalDistance += distance;
-            const impact = calculateEmissions(distance, mode);
-            totalImpact += impact;
-            resultsHTML += `<p>Segment ${index + 1}: ${distance.toFixed(2)} km, ${impact.toFixed(2)} kg CO2</p>`;
+            const apiKey = '5b3ce3597851110001cf62485e628efb7ff8440db7e15b707ff40a2d';
+            const url = `https://api.openrouteservice.org/v2/directions/${mode}?api_key=${apiKey}&start=${startCoords.lng},${startCoords.lat}&end=${endCoords.lng},${endCoords.lat}`;
+            const response = await fetch(url);
+            const data = await response.json();
+
+            if (data.features && data.features.length > 0) {
+                const routeCoordinates = data.features[0].geometry.coordinates.map(coord => [coord[1], coord[0]]);
+                allCoordinates = allCoordinates.concat(routeCoordinates);
+
+                const distance = data.features[0].properties.segments[0].distance / 1000;
+                totalDistance += distance;
+                const impact = calculateEmissions(distance, mode);
+                totalImpact += impact;
+                resultsHTML += `<p>Segment ${index + 1}: ${distance.toFixed(2)} km, ${impact.toFixed(2)} kg CO2</p>`;
+            }
         } catch (error) {
             console.error('Error processing segment:', error);
         }
     }
 
-    // Calculate equivalent air conditioner usage
-    const acEmissionsPerHour = 0.85; // kg CO2 per hour
+    // Draw the overall route with a single color (e.g., blue)
+    if (allCoordinates.length > 1) {
+        window.overallRouteLine = L.polyline(allCoordinates, { color: 'blue' }).addTo(map);
+        map.fitBounds(window.overallRouteLine.getBounds());
+    }
+
+    // ... rest of your result calculations and display
+    // (keep your resultsHTML and totalImpact logic as before)
+    const acEmissionsPerHour = 0.85;
     const acHours = Math.floor(totalImpact / acEmissionsPerHour);
     const acMinutes = Math.round(((totalImpact / acEmissionsPerHour) - acHours) * 60);
 
