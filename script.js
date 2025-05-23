@@ -55,3 +55,29 @@ L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
     segmentsContainer.innerHTML = '';
     addSegment(); // Add one default segment
 }
+
+async function calculateRoute(start, end) {
+    const apiKey = '5b3ce3597851110001cf62485e628efb7ff8440db7e15b707ff40a2d'; // Replace with your ORS API key
+    const url = `https://api.openrouteservice.org/v2/directions/driving-car?api_key=${apiKey}&start=${start.lng},${start.lat}&end=${end.lng},${end.lat}`;
+
+    const response = await fetch(url);
+    const data = await response.json();
+
+    const routeCoordinates = data.features[0].geometry.coordinates.map(coord => [coord[1], coord[0]]);
+    const distance = data.features[0].properties.segments[0].distance / 1000; // Distance in kilometers
+
+    // Display the route on the map
+    L.polyline(routeCoordinates, { color: 'blue' }).addTo(map);
+
+    // Fit the map to the route
+    map.fitBounds(routeCoordinates);
+
+    return distance; // Return the calculated distance
+}
+
+// Example usage
+const start = { lat: 40.7128, lng: -74.0060 }; // Example start point (New York City)
+const end = { lat: 40.73061, lng: -73.935242 }; // Example end point (Brooklyn)
+calculateRoute(start, end).then(distance => {
+    console.log(`Distance: ${distance.toFixed(2)} km`);
+});
