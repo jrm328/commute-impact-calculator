@@ -56,9 +56,10 @@ document.getElementById('commuteForm').addEventListener('submit', async function
     event.preventDefault();
     let totalImpact = 0;
     let totalDistance = 0;
+    let resultsHTML = '';
 
     const segments = document.querySelectorAll('.segment');
-    for (const segment of segments) {
+    for (const [index, segment] of segments.entries()) {
         const startAddress = segment.querySelector('.start-address').value;
         const endAddress = segment.querySelector('.end-address').value;
         const mode = segment.querySelector('.transport').value;
@@ -70,12 +71,27 @@ document.getElementById('commuteForm').addEventListener('submit', async function
             totalDistance += distance;
             const impact = calculateEmissions(distance, mode);
             totalImpact += impact;
+            resultsHTML += `<p>Segment ${index + 1}: ${distance.toFixed(2)} km, ${impact.toFixed(2)} kg CO2</p>`;
         } catch (error) {
             console.error('Error processing segment:', error);
         }
     }
 
-    document.getElementById('results').innerText = `Total Distance: ${totalDistance.toFixed(2)} km, Total Impact: ${totalImpact.toFixed(2)} kg CO2`;
+    // Calculate equivalent air conditioner usage
+    const acEmissionsPerHour = 0.88; // kg CO2 per hour
+    const dailyACMinutes = (totalImpact / acEmissionsPerHour) * 60;
+    const weeklyACMinutes = dailyACMinutes * 7;
+    const monthlyACMinutes = dailyACMinutes * 30;
+    const yearlyACMinutes = dailyACMinutes * 365;
+
+    resultsHTML += `<p><strong>Total Distance:</strong> ${totalDistance.toFixed(2)} km</p>`;
+    resultsHTML += `<p><strong>Total Impact:</strong> ${totalImpact.toFixed(2)} kg CO2</p>`;
+    resultsHTML += `<p>Daily CO2 impact is equivalent to running an air conditioner for ${dailyACMinutes.toFixed(0)} minutes.</p>`;
+    resultsHTML += `<p>Weekly CO2 impact is equivalent to running an air conditioner for ${weeklyACMinutes.toFixed(0)} minutes.</p>`;
+    resultsHTML += `<p>Monthly CO2 impact is equivalent to running an air conditioner for ${monthlyACMinutes.toFixed(0)} minutes.</p>`;
+    resultsHTML += `<p>Yearly CO2 impact is equivalent to running an air conditioner for ${yearlyACMinutes.toFixed(0)} minutes.</p>`;
+
+    document.getElementById('results').innerHTML = resultsHTML;
 });
 
 function addSegment() {
