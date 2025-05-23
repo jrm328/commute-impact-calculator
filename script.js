@@ -13,7 +13,7 @@ const transportColors = {
     'cycling-regular': 'green',
     'foot-walking': 'orange',
     'driving-hgv': 'red', // Assuming this is for buses
-    'train': 'purple'
+    'cycling-road': 'purple'
 };
 
 async function geocodeAddress(address) {
@@ -63,10 +63,11 @@ async function calculateRoute(start, end, mode) {
 function calculateEmissions(distance, mode) {
     const emissionsFactors = {
         'driving-car': 0.411,  // Example: 411 grams CO2 per mile
-        'cycling-regular': 0.0,
-        'foot-walking': 0.0,
-        'driving-hgv': 0.089,  // Bus example
-        'train': 0.045
+        'cycling-regular': 0.03,
+        'foot-walking': 0.05,
+        'driving-hgv': 0.18,  // Bus example
+        'cycling-road': 0.08 // use Road cycling as API has no train 
+        'cycling-electric' 0.035: //Electric scooter or bike
     };
     return distance * emissionsFactors[mode];
 }
