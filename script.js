@@ -1,6 +1,16 @@
 function addSegment() {
     const segment = document.querySelector('.segment').cloneNode(true);
+    segment.querySelectorAll('input').forEach(input => input.value = ''); // Clear input fields
     document.getElementById('segments').appendChild(segment);
+}
+
+function removeSegment(button) {
+    const segment = button.parentElement;
+    if (document.querySelectorAll('.segment').length > 1) {
+        segment.remove();
+    } else {
+        alert("You must have at least one segment.");
+    }
 }
 
 document.getElementById('commuteForm').addEventListener('submit', function(event) {
@@ -27,4 +37,12 @@ function calculateEmissions(distance, mode) {
         'walk': 0.0
     };
     return distance * emissionsFactors[mode];
+}
+
+function resetForm() {
+    document.getElementById('commuteForm').reset();
+    document.getElementById('results').innerText = '';
+    const segmentsContainer = document.getElementById('segments');
+    segmentsContainer.innerHTML = '';
+    addSegment(); // Add one default segment
 }
