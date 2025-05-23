@@ -1,12 +1,11 @@
 # Commute Impact Calculator
 
-A simple web application that calculates the environmental impact of your daily commute. Users can input their travel route with multiple modes of transportation (car, bike, electric scooter, train, bus, walk) and receive an estimate of CO2 emissions for one day, one month, and one year.
+A simple web application that calculates the environmental impact of your daily commute. Users can input their travel route with multiple modes of transportation (car, bike, electric scooter, train, bus, walk) and receive an estimate of CO2 emissions for the commute compared to household AC use.
 
 ## Features
 
 - **Multi-Mode Transport**: Input multiple segments of a commute with different transportation modes.
 - **CO2 Emissions Calculation**: Calculate total CO2 emissions based on user input.
-- **Time Frame Analysis**: Display results for daily, monthly, and yearly impacts.
 - **Web-Based Access**: Hosted on GitHub Pages for easy accessibility.
 
 ## Getting Started
