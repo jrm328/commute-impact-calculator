@@ -13,7 +13,7 @@ h1 {
 }
 
 form {
-    max-width: 600px;
+    max-width: 90%;
     margin: 20px auto;
     padding: 20px;
     background-color: #fff;
@@ -58,14 +58,14 @@ button:hover {
     height: 400px;
     width: 100%;
     margin: 20px auto;
-    max-width: 800px;
+    max-width: 90%;
     border-radius: 8px;
     overflow: hidden;
     box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
 }
 
 #results {
-    max-width: 600px;
+    max-width: 90%;
     margin: 20px auto;
     padding: 20px;
     background-color: #fff;
@@ -109,4 +109,32 @@ button:hover {
     margin-right: 5px;
     border-radius: 3px;
     vertical-align: middle;
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+    form, #map, #results {
+        max-width: 95%;
+        padding: 15px;
+    }
+
+    button {
+        padding: 8px 15px;
+        font-size: 0.9em;
+    }
+}
+
+@media (max-width: 480px) {
+    h1 {
+        font-size: 1.5em;
+    }
+
+    button {
+        padding: 6px 10px;
+        font-size: 0.8em;
+    }
+
+    #legend {
+        font-size: 0.8em;
+    }
 }
