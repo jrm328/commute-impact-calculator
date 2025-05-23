@@ -12,6 +12,12 @@ h1 {
     color: #333;
 }
 
+p {
+    text-align: center;
+    margin: 14px 0;
+    color: #333;
+}
+
 form {
     max-width: 90%;
     margin: 20px auto;
@@ -127,6 +133,10 @@ button:hover {
 @media (max-width: 480px) {
     h1 {
         font-size: 1.5em;
+    }
+
+    p {
+        font-size: 0.8em;
     }
 
     button {
