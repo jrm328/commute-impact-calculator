@@ -13,20 +13,19 @@
     <form id="commuteForm">
         <div id="segments">
             <div class="segment">
-                <label>Start Location: <input type="text" class="start"></label>
-                <label>End Location: <input type="text" class="end"></label>
-                <label>Mode of Transport:
-                    <select class="transport">
-                        <option value="car">Car</option>
-                        <option value="bike">Bike</option>
-                        <option value="scooter">Electric Scooter</option>
-                        <option value="train">Train</option>
-                        <option value="bus">Bus</option>
-                        <option value="walk">Walk</option>
-                    </select>
-                </label>
-                <button type="button" class="remove-segment" onclick="removeSegment(this)">Remove Segment</button>
-            </div>
+    <label>Start Address: <input type="text" class="start-address"></label>
+    <label>End Address: <input type="text" class="end-address"></label>
+    <label>Mode of Transport:
+        <select class="transport">
+            <option value="driving-car">Car</option>
+            <option value="cycling-regular">Bike</option>
+            <option value="foot-walking">Walk</option>
+            <option value="driving-hgv">Bus</option>
+            <option value="driving-car">Train</option>
+        </select>
+    </label>
+    <button type="button" class="remove-segment" onclick="removeSegment(this)">Remove Segment</button>
+</div>
         </div>
         <button type="button" onclick="addSegment()">Add Segment</button>
         <button type="submit">Calculate Impact</button>
