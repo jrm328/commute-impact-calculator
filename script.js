@@ -66,8 +66,8 @@ function calculateEmissions(distance, mode) {
         'cycling-regular': 0.03,
         'foot-walking': 0.05,
         'driving-hgv': 0.18,  // Bus example
-        'cycling-road': 0.08 // use Road cycling as API has no train 
-        'cycling-electric' 0.035: //Electric scooter or bike
+        'cycling-road': 0.08, // use Road cycling as API has no train 
+        'cycling-electric': 0.035 //Electric scooter or bike
     };
     return distance * emissionsFactors[mode];
 }
